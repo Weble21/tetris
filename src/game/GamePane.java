@@ -14,9 +14,6 @@ import javax.swing.text.StyledDocument;
 import blocks.Block;
 
 public class GamePane extends JTextPane {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected SimpleAttributeSet styleSet;
 	public static final int HEIGHT = 20;
@@ -107,6 +104,17 @@ public class GamePane extends JTextPane {
 			for (int j = 0; j < WIDTH + 2; j++)
 				colorBoard[i][j] = "BLACK";
 	}
+
+	public void changeback() {
+		setBackground(Color.WHITE);
+		System.out.println("white");
+	}
+
+	public void backback() {
+		setBackground(Color.BLACK);
+		System.out.println("BLACK");
+	}
+
 
 	public SimpleAttributeSet getStyleSet() {
 		return styleSet;

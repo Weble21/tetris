@@ -1,4 +1,4 @@
-package game;
+/*package game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,4 +12,4 @@ class GamePaneTest {
 		
 	}
 
-}
+}*/

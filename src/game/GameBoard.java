@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.BoxLayout;
@@ -19,6 +22,7 @@ import javax.swing.text.*;
 
 import blocks.Block;
 import blocks.GetRandomBlock;
+import junit.extensions.ExceptionTestCase;
 import main.Tetris;
 import scoreboard.ScoreBoardMenu;
 import setting.Mode;
@@ -252,6 +256,7 @@ public class GameBoard extends JPanel {
 			y = 0;
 			nextBlockPane.drawNextBlockBoard(nextBlock);
 		}
+		gamePane.backback();
 		score++;
 		updateScore();
 		gamePane.placeBlock(x, y, curr);
@@ -296,7 +301,21 @@ public class GameBoard extends JPanel {
 		gamePane.placeBlock(x, y, curr);
 	}
 
-	protected void eraseLine() {
+	//sound
+	public static void audio() {
+		try {
+			File file = new File("src/images/lineClear.wav");
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(file));
+			clip.loop(0);
+			clip.start();
+		}
+		catch (Exception e) {
+			System.err.println("no music");
+		}
+	}
+
+	public void eraseLine() {
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
 			for (int j = 0; j < WIDTH; j++) {
@@ -316,9 +335,12 @@ public class GameBoard extends JPanel {
 				lineNum++;
 				updateScore();
 				speedUp();
+				audio();
+				gamePane.changeback();
 			}
 		}
 	}
+
 
 	protected boolean detectCrash(char position) {
 		boolean result = false;
